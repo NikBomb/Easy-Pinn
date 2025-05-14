@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "main.cpp",
+                "-g",
+                "-o",
+                "easyPinn.out",
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true,
+            },
+            "presentation": {
+                "reveal": "always",
+                "focus": true,
+                "panel": "new",
+            },
+            "problemMatcher": "$gcc",
+        }
+    ]
+}
