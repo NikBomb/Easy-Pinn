@@ -5,7 +5,10 @@
 #include <iostream>
 #include <functional>
 
-constexpr double EPS = 0.0000001; 
+
+
+#include "finiteDifferences.hpp"
+
 
 class PINN{
     std::vector<double> m_hweights; 
@@ -56,12 +59,13 @@ class PINN{
         return m_weights.size();
     }
 
-    double DerivativeWrtInput(double x)
+    double derivativeWrtInput(double x, int n)
     {
         double res = 0.0;
         for (size_t i = 0; i < m_hweights.size(); ++i){
             double z_i = m_hweights[i] * x + m_hbiases[i];
-            res += m_weights[i] * m_hweights[i] * n_deriv_tanh(1, z_i);
+            double der_tanh = n_deriv_tanh(n, z_i);
+            res += m_weights[i] * pow(m_hweights[i], n)  * der_tanh;
         } 
         return res;
     }
@@ -70,27 +74,15 @@ class PINN{
     
 
     double n_deriv_tanh(size_t order, double x){
-        return finite_diff_recursive([](double x){return std::tanh(x);}, x, order);
-    }
-
-    double finite_diff_recursive(std::function<double(double)> fn, double x, int n) {
-        if (n == 0) {
-            return fn(x);
-        }
-        return (finite_diff_recursive(fn, x + EPS , n - 1) - finite_diff_recursive(fn, x , n - 1)) / (EPS);
+        return easyPinn::finiteDifferences::finite_diff_recursive([](double x){return std::tanh(x);}, x, order);
     }
 };
 
-namespace finite_difference {
+namespace pinn_fd {
 
-    std::vector<double> n_derivative_num (std::function<std::vector<double>(std::vector<double>)> fn, size_t n) {
-        
-    }
-
-    double firstDerivativeWrtInput(const PINN& pinn, double x){
-        double out = pinn.evaluate(x);
-        double out1 = pinn.evaluate(x + EPS);
-        return (out1 - out) / EPS;
+    double derivativeWrtInput(const PINN& pinn, double x, int n){
+       
+        return easyPinn::finiteDifferences::finite_diff([&pinn](const double x){return pinn.evaluate(x);}, x, n);
     }
 
     std::vector<double> firstDerivativeWrtWeights(const PINN& pinn, double x){
@@ -100,9 +92,9 @@ namespace finite_difference {
 
         for (int i =0; i < pinn.getWeightSize(); ++i){
             PINN p = pinn;
-            p.setWeight(i, p.getWeight(i) + EPS);
+            p.setWeight(i, p.getWeight(i) + easyPinn::finiteDifferences::EPS);
             double new_eval = p.evaluate(x);
-            out[i] = (new_eval - eval)/EPS;
+            out[i] = (new_eval - eval)/easyPinn::finiteDifferences::EPS;
         }
         return out;
     }
@@ -111,11 +103,11 @@ namespace finite_difference {
 int main(){
     PINN pinn{};
     double x = 0.5;
-    double num_der = finite_difference::firstDerivativeWrtInput(pinn, x);
-    double der_lag = pinn.DerivativeWrtInput(x);
+    double num_der = pinn_fd::derivativeWrtInput(pinn, x, 2);
+    double der_lag = pinn.derivativeWrtInput(x, 2);
     
-    std::cout << "Numerical first derivative wrt input: " << num_der << "\n";
-    std::cout << "Analytical first derivative wrt input: " << der_lag << "\n";
+    std::cout << "Numerical  derivative wrt input: " << num_der << "\n";
+    std::cout << "Analytical derivative wrt input: " << der_lag << "\n";
     std::cout << "-----------------------------------------" << "\n";
 
 
