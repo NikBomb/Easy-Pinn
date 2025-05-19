@@ -7,7 +7,7 @@
 
 namespace easyPinn::finiteDifferences
 {
-    constexpr double EPS = 0.0000001;
+    constexpr double EPS = 0.000001;
 
     double finite_diff_recursive(std::function<double(double)> fn, double x, int n)
     {

@@ -5,7 +5,7 @@
       "name": "(gdb) Launch",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/easyPinn.out",
+      "program": "${workspaceFolder}/build/easyPinn",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${fileDirname}",
@@ -24,26 +24,7 @@
           "ignoreFailures": true
         }
       ],
-      "preLaunchTask": "build"
-    },
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "cppdbg",
-      "request": "launch",
-      "args": [],
-      "stopAtEntry": false,
-      "externalConsole": false,
-      "cwd": "/home/nico/Desktop/Easy-Pinn",
-      "program": "/home/nico/Desktop/Easy-Pinn/build/Debug/outDebug",
-      "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
+      "preLaunchTask": "CMake: build"
     }
   ]
 }
