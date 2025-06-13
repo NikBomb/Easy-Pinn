@@ -1,0 +1,8 @@
+set(EASYPINN_WARNINGS "")
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    set(EASYPINN_WARNINGS "-Wall;-Wextra;-Wpedantic")
+else()
+    if (MSVC)
+        set(EASYPINN_WARNINGS "/W4")
+    endif()
+endif()

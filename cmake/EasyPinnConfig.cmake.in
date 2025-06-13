@@ -1,0 +1,30 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/EasyPinnTargets.cmake")
+
+// === lib/CMakeLists.txt ===
+add_library(easypinn SHARED
+    src/MyClass.cpp
+)
+
+target_include_directories(easypinn
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+)
+
+target_compile_definitions(easypinn
+    PUBLIC EASYPINN_EXPORTS
+)
+
+target_compile_options(easypinn PRIVATE ${EASYPINN_WARNINGS})
+
+install(TARGETS easypinn
+        EXPORT EasyPinnTargets
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
+        RUNTIME DESTINATION bin
+        INCLUDES DESTINATION include)
+
+install(DIRECTORY include/easypinn/public
+        DESTINATION include/easypinn)
