@@ -1,5 +1,6 @@
 add_library(easypinn SHARED
-    src/MyClass.cpp
+    src/finiteDifferences.cpp
+    src/PINN.cpp
 )
 
 target_include_directories(easypinn

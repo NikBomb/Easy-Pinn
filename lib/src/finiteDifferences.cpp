@@ -1,13 +1,12 @@
-#ifndef FINITEDIFF_HPP
-#define FINITEDIFF_HPP
-
+#include "easypinn/public/finiteDifferences.h"
 #include <functional>
 #include <vector>
 #include <cmath>
 
+
 namespace easyPinn::finiteDifferences
 {
-    constexpr double EPS = 0.000001;
+    constexpr double EPS() {return .000001;}
 
     double finite_diff_recursive(std::function<double(double)> fn, double x, int n)
     {
@@ -15,7 +14,7 @@ namespace easyPinn::finiteDifferences
         {
             return fn(x);
         }
-        return (finite_diff_recursive(fn, x + EPS, n - 1) - finite_diff_recursive(fn, x, n - 1)) / (EPS);
+        return (finite_diff_recursive(fn, x + EPS(), n - 1) - finite_diff_recursive(fn, x, n - 1)) / (EPS());
     }
 
     std::vector<int> getBinomialCoefficients(int n)
@@ -35,15 +34,14 @@ namespace easyPinn::finiteDifferences
 
         for (int k = 0; k <= n; ++k)
         {
-            double term = binom[k] * f(x + (n - k) * EPS);
+            double term = binom[k] * f(x + (n - k) * EPS());
             if (k % 2 != 0)
                 term *= -1; // Apply (-1)^k
             result += term;
         }
 
-        result /= std::pow(EPS, n);
+        result /= std::pow(EPS(), n);
         return result;
     }
 
 }
-#endif
