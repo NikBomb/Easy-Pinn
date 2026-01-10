@@ -1,6 +1,5 @@
 add_library(easypinn SHARED
     src/finiteDifferences.cpp
-    src/PINN.cpp
 )
 
 target_include_directories(easypinn
@@ -31,4 +30,3 @@ install(EXPORT EasyPinnTargets
         NAMESPACE EasyPinn::
         DESTINATION lib/cmake/EasyPinn
         COMPONENT library)
-
