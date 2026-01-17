@@ -1,12 +1,14 @@
+#include "problem0.h"
+#include "problem0_trainer.h"
 #include "easypinn/public/PINN.h"
 #include "easypinn/public/adam.h"
-#include "easypinn/public/problem0_trainer.h"
 
 #include <array>
 #include <cmath>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <tuple>
 #include <vector>
 
 namespace {
@@ -68,9 +70,10 @@ int main() {
         }
     }
 
-    std::filesystem::create_directories("results");
+    const std::filesystem::path results_dir{"results/problem0"};
+    std::filesystem::create_directories(results_dir);
     {
-        std::ofstream out("results/problem0_residuals.csv");
+        std::ofstream out(results_dir / "problem0_residuals.csv");
         out << "epoch,residual\n";
         for (size_t i = 0; i < residual_history.size(); ++i) {
             out << i << "," << residual_history[i] << "\n";
@@ -78,19 +81,17 @@ int main() {
     }
 
     easyPinn::problem0::TrialFunctionProblem0 trial_fn;
-    easyPinn::problem0::ResidualProblem0 residual_fn;
     const auto samples = makeSamplePoints();
     {
-        std::ofstream out("results/problem0_solution.csv");
+        std::ofstream out(results_dir / "problem0_solution.csv");
         out << "x,y_trial,exp_x,error\n";
         for (double x : samples) {
             const double n = pinn.evaluate(x);
             const double dn_dx = pinn.derivativeWrtInput(x, 1);
             const auto trial_out = trial_fn.forward(x, n, dn_dx);
             const double exact = std::exp(x);
-            const double residual = residual_fn.forward(trial_out.value, trial_out.derivative);
             const double error = trial_out.value - exact;
-            out << x << "," << trial_out.value << "," << exact << "," << error*error << "\n";
+            out << x << "," << trial_out.value << "," << exact << "," << error << "\n";
         }
     }
 

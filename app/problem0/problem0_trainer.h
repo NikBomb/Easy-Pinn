@@ -1,9 +1,8 @@
 #pragma once
 
-#include "../api.h"
-#include "PINN.h"
-#include "adam.h"
 #include "problem0.h"
+#include "easypinn/public/adam.h"
+#include "easypinn/public/PINN.h"
 #include <array>
 #include <cstddef>
 #include <tuple>
@@ -11,7 +10,7 @@
 namespace easyPinn::problem0 {
 
 template<typename Pinn>
-class EASYPINN_API Problem0Trainer {
+class Problem0Trainer {
 public:
     using ParameterArray = typename Pinn::ParameterArray;
     static constexpr size_t kParameterCount = std::tuple_size<ParameterArray>::value;

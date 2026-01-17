@@ -6,9 +6,19 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(cmake/CompilerWarnings.cmake)
 
+include(FetchContent)
+
+FetchContent_Declare(
+    doctest
+    GIT_REPOSITORY https://github.com/doctest/doctest.git
+    GIT_TAG v2.4.11
+)
+
+FetchContent_MakeAvailable(doctest)
+
 add_subdirectory(lib)
-add_subdirectory(app)
 enable_testing()
+add_subdirectory(app)
 add_subdirectory(test)
 include(CMakePackageConfigHelpers)
 
@@ -21,4 +31,3 @@ configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/EasyPinnConfig.c
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/EasyPinnConfig.cmake
         DESTINATION lib/cmake/EasyPinn
 	COMPONENT library)
-

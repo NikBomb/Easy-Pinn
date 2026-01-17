@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../api.h"
 #include <array>
 #include <cstddef>
 
@@ -21,7 +20,7 @@ struct ResidualBackward {
     double grad_trial_derivative{};
 };
 
-struct EASYPINN_API TrialFunctionProblem0 {
+struct TrialFunctionProblem0 {
     TrialOutput forward(double x, double n, double dn_dx) const {
         return {1.0 + x * n, n + x * dn_dx};
     }
@@ -31,7 +30,7 @@ struct EASYPINN_API TrialFunctionProblem0 {
     }
 };
 
-struct EASYPINN_API ResidualProblem0 {
+struct ResidualProblem0 {
     double forward(double trial, double trial_derivative) const {
         return trial_derivative - trial;
     }
@@ -41,7 +40,7 @@ struct EASYPINN_API ResidualProblem0 {
     }
 };
 
-struct EASYPINN_API ResidualMSELoss {
+struct ResidualMSELoss {
     template<size_t N>
     double forward(const std::array<double, N>& residuals) const {
         double sum = 0.0;
