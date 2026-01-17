@@ -14,6 +14,7 @@ Implement the planned feature to satisfy the spec’s acceptance criteria, with 
 2) Implement incrementally:
    - prefer small, focused edits
    - avoid unrelated refactors
+   - avoid `#pragma once`; use include guards
 3) Keep boundaries consistent with architecture notes.
 4) Add/update tests aligned with ACs.
 5) Update docs or comments if they clarify usage.
@@ -24,4 +25,3 @@ Implement the planned feature to satisfy the spec’s acceptance criteria, with 
 - What changed (bullets)
 - Where to look (files touched)
 - Which ACs are now satisfied / partial
-

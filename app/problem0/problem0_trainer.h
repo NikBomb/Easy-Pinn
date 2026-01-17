@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EASYPINN_APP_PROBLEM0_PROBLEM0_TRAINER_H
+#define EASYPINN_APP_PROBLEM0_PROBLEM0_TRAINER_H
 
 #include "problem0.h"
 #include "easypinn/public/adam.h"
@@ -120,3 +121,5 @@ private:
 };
 
 } // namespace easyPinn::problem0
+
+#endif  // EASYPINN_APP_PROBLEM0_PROBLEM0_TRAINER_H

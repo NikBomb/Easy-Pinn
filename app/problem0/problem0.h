@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EASYPINN_APP_PROBLEM0_PROBLEM0_H
+#define EASYPINN_APP_PROBLEM0_PROBLEM0_H
 
 #include <array>
 #include <cstddef>
@@ -63,3 +64,5 @@ struct ResidualMSELoss {
 };
 
 } // namespace easyPinn::problem0
+
+#endif  // EASYPINN_APP_PROBLEM0_PROBLEM0_H

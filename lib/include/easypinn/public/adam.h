@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EASYPINN_PUBLIC_ADAM_H
+#define EASYPINN_PUBLIC_ADAM_H
 
 #include "../api.h"
 #include <array>
@@ -44,3 +45,5 @@ private:
 };
 
 } // namespace easyPinn
+
+#endif  // EASYPINN_PUBLIC_ADAM_H

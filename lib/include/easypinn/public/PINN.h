@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EASYPINN_PUBLIC_PINN_H
+#define EASYPINN_PUBLIC_PINN_H
 #include "../api.h"
 #include <array>
 #include <algorithm>
@@ -287,3 +288,5 @@ namespace pinn_fd {
         return out;
     }
 }
+
+#endif  // EASYPINN_PUBLIC_PINN_H

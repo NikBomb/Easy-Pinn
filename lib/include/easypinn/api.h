@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EASYPINN_API_H
+#define EASYPINN_API_H
 
 #if defined(_WIN32) || defined(_WIN64)
     #ifdef EASYPINN_EXPORTS
@@ -9,3 +10,5 @@
 #else
     #define EASYPINN_API __attribute__((visibility("default")))
 #endif
+
+#endif  // EASYPINN_API_H
