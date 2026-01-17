@@ -4,9 +4,9 @@
 Implement the planned feature to satisfy the spec’s acceptance criteria, with minimal scope creep.
 
 ## Inputs
-- Spec file
+- Spec file: `specs/<SPEC-ID>.md` 
 - Plan file: `plans/<SPEC-ID>-plan.md`
-- Any relevant architecture notes
+- Any relevant architecture notes: `architecture/<SPEC-ID>-arch.md`
 
 ## Flow
 1) Confirm scope:
