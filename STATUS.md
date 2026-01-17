@@ -7,26 +7,21 @@ It is the primary input for feature selection when the user does not specify a s
 
 ## In progress
 (Actively being worked on; highest priority)
-
-- SPEC-0003: PINN heat equation baseline
-- SPEC-0004A: Experiment runner CLI
+- None
 
 ---
 
 ## Draft
 (Planned, not yet started)
-
-- SPEC-0004B: Experiment runner config format
-- SPEC-0004C: Results tracking and metrics
-- SPEC-0005: Training stability diagnostics
+- None
 
 ---
 
 ## Complete
 (Finished features; reference only)
-
-- SPEC-0001: Project scaffold
-- SPEC-0002: Basic PINN template
+- SPEC-0006: Problem 0 PINN baseline
+- SPEC-0006A: Adam optimizer and Problem 0 training check
+- SPEC-0007: Problem 0 full-domain app with results export
 
 ---
 
@@ -34,4 +29,3 @@ It is the primary input for feature selection when the user does not specify a s
 - Prefer finishing **In progress** specs before starting new ones.
 - Large specs should be split into sub-specs (A, B, C).
 - If no spec is In progress, pick the lowest-numbered Draft spec and propose moving it to In progress.
-
