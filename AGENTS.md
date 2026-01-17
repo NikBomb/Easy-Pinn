@@ -15,6 +15,15 @@ This file defines **how we work** (process + rules). Feature requirements live i
 
 ---
 
+## Required reading order
+Agents MUST read:
+1. `README.md` — project goals, scope, non-goals
+2. `AGENTS.md` — workflow orchestration
+3. `STATUS.md` — current priorities
+4. Relevant specs in `specs/`
+
+---
+
 ## Repository layout (folder conventions)
 
 ### Specs (source of truth for WHAT)
@@ -96,12 +105,16 @@ Use full pipeline when ANY are true:
 - Spec has multiple ACs or spans weekends
 
 Full pipeline stages:
-0) SelectFeature
-1) ArchitectReview
-2) PlanFeature
-3) ImplementFeature
-4) TestFeature
-5) ReviewFeature
+
+0) SelectWork  
+1) SpecWriter *(only if no suitable spec exists)*  
+2) ArchitectReview  
+3) PlanFeature  
+4) ImplementFeature  
+5) TestFeature  
+6) ReviewFeature  
+7) Explainer *(optional)*
+
 Loop:
 - If TestFeature or ReviewFeature fails, return to ImplementFeature with a fix list and repeat.
 
@@ -120,7 +133,10 @@ Pick work in this order:
 3. If no sub-specs match, pick the lowest-numbered `Draft` spec
 4. If there are no specs, propose creating one using the spec template.
 
-### C) If a selected spec is too large
+### C) If the user provides a problem statement (no spec)
+- Invoke **SpecWriter**.
+
+### D) If a selected spec is too large
 - Propose splitting into sub-specs (vertical slices) and proceed with the smallest viable slice first.
 
 ---
@@ -132,7 +148,12 @@ Output:
 - Selected spec ID
 - Whether to use Lightweight or Full pipeline (and why)
 
-### 1) ArchitectReview (Full pipeline only)
+### 1) SpecWriter *(only if no suitable spec exists)*
+
+Output:
+ - Specs according to template in the spec folder.
+
+### 2) ArchitectReview (Full pipeline only)
 Goal:
 - Clean boundaries, SOLID-ish structure, testability, minimal future pain
 
@@ -147,7 +168,7 @@ Output artifact:
 Gate:
 - Do not implement until ArchitectReview is complete.
 
-### 2) PlanFeature
+### 3) PlanFeature
 Output artifact:
 - Write `plans/<SPEC-ID>-plan.md` containing:
   - Spec summary (1–2 lines)
@@ -160,11 +181,11 @@ Output artifact:
 Gate:
 - Do not implement until plan is written.
 
-### 2b) PlanLite (Lightweight mode)
+### 3b) PlanLite (Lightweight mode)
 Output (in chat is fine; optional file):
 - 3 bullet plan max + which tests to run
 
-### 3) ImplementFeature
+### 4) ImplementFeature
 Rules:
 - Implement only what’s in scope for the spec/plan.
 - If you discover missing requirements, update the spec or record an explicit deviation.
@@ -173,7 +194,7 @@ Rules:
 Output:
 - Brief summary of changes made.
 
-### 4) TestFeature
+### 5) TestFeature
 Rules:
 - Run the repo’s standard checks if available.
 - If tests are not set up, run a minimal smoke check.
@@ -183,14 +204,14 @@ Output:
 - Results summary
 - If failures: top causes + fix list
 
-### 4b) TestLite (Lightweight mode)
+### 5b) TestLite (Lightweight mode)
 Rules:
 - Run the smallest relevant test/smoke check.
 
 Output:
 - What you ran + pass/fail
 
-### 5) ReviewFeature
+### 6) ReviewFeature
 Checklist:
 - ACs satisfied or explicitly marked partial
 - Code quality: naming, small functions, typing/docs where appropriate
